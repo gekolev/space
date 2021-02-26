@@ -2,153 +2,111 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <style type="text/css">
-        html, body {
-            margin: 0;
-            height: 100%;
-        }
-
-        canvas {
-            display: block;
-        }
-
-    </style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
-<body onload="draw();">
+<body>
+    
 </body>
+
 <script src="https://johnson2heng.github.io/three.js-demo/lib/three.js"></script>
 <script src="https://johnson2heng.github.io/three.js-demo/lib/js/controls/OrbitControls.js"></script>
 <script src="https://johnson2heng.github.io/three.js-demo/lib/js/libs/stats.min.js"></script>
 <script src="https://johnson2heng.github.io/three.js-demo/lib/js/libs/dat.gui.min.js"></script>
-<script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/controls/DeviceOrientationControls.js"></script> 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js" integrity="sha512-n8IpKWzDnBOcBhRlHirMZOUvEq2bLRMuJGjuVqbzUJwtTsgwOgK5aS0c1JA647XWYfqvXve8k3PtZdzpipFjgg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.js" integrity="sha512-aPhrlLlp7Mr8g+MVw6/wMD8PjqqzRNhSM8pHDyyJPmUTJMzKxMmxrjauzQforOaAegN3CIKUTKXJyLwFD57RtA==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.module.js" integrity="sha512-X8D4WXQ7+AHBIDs+l8dFr+7BVP1jE7ZB2SgApHxVEj1ZDZ/m0bXJA0onJSrRwnpBO/mIMyOtnTAA7qzeH1A1wA==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.module.min.js" integrity="sha512-NLZbIaXz7478HOc7l9TPPedN72kLMm2pLk3t2Tnx4bMoDfi8/D/FEaUgB775fY/jPqJK4wuZgDgL6F30sSRrSg==" crossorigin="anonymous"></script><script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/controls/DeviceOrientationControls.js"></script> 
 <script>
-    var renderer;
 
-    function initRender() {
-        renderer = new THREE.WebGLRenderer({antialias: true});
-        renderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0)); //Set the background color
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
-    }
+let camera, scene, renderer, controls;
 
-    var camera;
+window.onload=function () {
 
-    function initCamera() {
-        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
-        camera.target = new THREE.Vector3( 0, 100, 0 );
-    }
+    init();
+    animate();
 
-    var scene;
+};
 
-    function initScene() {
-        scene = new THREE.Scene();
-    }
 
-    var light;
 
-    function initLight() {
+function init() {
 
-    }
 
-    function initModel() {
+    camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
 
-        //Axis auxiliary (length of each axis)
-        var object = new THREE.AxesHelper(500);
-        scene.add(object);
+    controls = new THREE.DeviceOrientationControls( camera );
 
-        //Declare a sphere
-        var geometry = new THREE.SphereBufferGeometry( 500, 60, 40 );
-        // Reverse the geometry on the X axis so that all face points are inward.
-        geometry.scale( - 1, 1, 1 );
-        //Declare the sphere texture
-        var material = new THREE.MeshBasicMaterial( {
-            map: new THREE.TextureLoader().load( 'https://mir-s3-cdn-cf.behance.net/project_modules/fs/ca0fe977589717.6038b8a89ac68.jpg' ) //Load a whole texture picture
-        } );
-        mesh = new THREE.Mesh( geometry, material );
-        scene.add( mesh );
+    scene = new THREE.Scene();
 
-    }
+    const geometry = new THREE.SphereGeometry( 500, 60, 40 );
+    // invert the geometry on the x-axis so that all of the faces point inward
+    geometry.scale( - 1, 1, 1 );
 
-    //Initialize the performance plugin
-    var stats;
+    const material = new THREE.MeshBasicMaterial( {
+        map: new THREE.TextureLoader().load( 'https://mir-s3-cdn-cf.behance.net/project_modules/fs/ca0fe977589717.6038b8a89ac68.jpg' )
+    } );
 
-    function initStats() {
-        stats = new Stats();
-        document.body.appendChild(stats.dom);
-    }
+    const mesh = new THREE.Mesh( geometry, material );
+    scene.add( mesh );
 
-    //User interaction plug-in: Press and hold the left mouse button to rotate, press and hold the right button to pan, scroll wheel to zoom
-    var controls;
+    const helperGeometry = new THREE.BoxGeometry( 100, 100, 100, 4, 4, 4 );
+    const helperMaterial = new THREE.MeshBasicMaterial( { color: 0xff00ff, wireframe: true } );
+    const helper = new THREE.Mesh( helperGeometry, helperMaterial );
+    scene.add( helper );
 
-    function initControls() {
+    //
 
-        //controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls = new THREE.DeviceOrientationControls( camera );
-        // If you use the animate method, delete this function
-        //controls.addEventListener( 'change', render );
-        // When the animation is used in a loop, damping or rotating means whether there is inertia
-        //controls.enableDamping = true;
-        //Dynamic damping coefficient is the sensitivity of mouse drag rotation
-        //controls.dampingFactor = 0.25;
-        //Can zoom
-        //controls.enableZoom = true;
-        // Whether to automatically rotate
-        //controls.autoRotate = false;
-        //Set the maximum distance of the camera from the origin
-        //controls.minDistance = 20;
-        //Set the maximum distance of the camera from the origin
-        //controls.maxDistance = 10000;
-        //Whether to enable right-click drag
-        //controls.enablePan = true;
-    }
+    renderer = new THREE.WebGLRenderer( { antialias: true } );
+    renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild( renderer.domElement );
 
-    //Generate gui settings configuration items
-    var gui;
-    function initGui() {
-        //Declare an object that saves the relevant data that needs to be modified
-        gui = {
+    //
 
-        };
-        var datGui = new dat.GUI();
-        //Add the setting attribute to the gui, gui.add(object, attribute, minimum, maximum)
-    }
+    window.addEventListener( 'resize', onWindowResize );
 
-    function render() {
-        renderer.render(scene, camera);
-    }
+    if (window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', function (eventData) {
 
-    //Function triggered by window change
-    function onWindowResize() {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        render();
-        renderer.setSize(window.innerWidth, window.innerHeight);
 
-    }
+        var tiltX = Math.round(eventData.gamma * 2 );
 
-    function animate() {
-        //Update the controller
-        controls.update();
-        render();
 
-        //Update performance plugin
-        stats.update();
-        requestAnimationFrame(animate);
-    }
+        var tiltY =  Math.round(eventData.beta * 2);
 
-    function draw() {
-        initRender();
-        initScene();
-        initCamera();
-        initLight();
-        initModel();
-        initControls();
-        initStats();
-        initGui();
+        deviceOrientationHandler(tiltX,tiltY);
 
-        animate();
-        window.onresize = onWindowResize;
-    }
+    }, false);
+}
+
+function deviceOrientationHandler(tiltX, tiltY){
+
+      mouseX = tiltX;
+      mouseY = tiltY;
+}
+
+}
+
+function animate() {
+
+    window.requestAnimationFrame( animate );
+
+    controls.update();
+    renderer.render( scene, camera );
+
+}
+
+function onWindowResize() {
+
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize( window.innerWidth, window.innerHeight );
+
+}
+
 </script>
 </html>
