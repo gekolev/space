@@ -84,23 +84,23 @@
     function initControls() {
 
         //controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls = new DeviceOrientationControls( camera );
+        controls = new THREE.DeviceOrientationControls( camera );
         // If you use the animate method, delete this function
         //controls.addEventListener( 'change', render );
         // When the animation is used in a loop, damping or rotating means whether there is inertia
-        controls.enableDamping = true;
+        //controls.enableDamping = true;
         //Dynamic damping coefficient is the sensitivity of mouse drag rotation
         //controls.dampingFactor = 0.25;
         //Can zoom
-        controls.enableZoom = true;
+        //controls.enableZoom = true;
         // Whether to automatically rotate
-        controls.autoRotate = false;
+        //controls.autoRotate = false;
         //Set the maximum distance of the camera from the origin
-        controls.minDistance = 20;
+        //controls.minDistance = 20;
         //Set the maximum distance of the camera from the origin
-        controls.maxDistance = 10000;
+        //controls.maxDistance = 10000;
         //Whether to enable right-click drag
-        controls.enablePan = true;
+        //controls.enablePan = true;
     }
 
     //Generate gui settings configuration items
