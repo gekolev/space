@@ -21,6 +21,7 @@
 <script src="https://johnson2heng.github.io/three.js-demo/lib/js/controls/OrbitControls.js"></script>
 <script src="https://johnson2heng.github.io/three.js-demo/lib/js/libs/stats.min.js"></script>
 <script src="https://johnson2heng.github.io/three.js-demo/lib/js/libs/dat.gui.min.js"></script>
+<script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/controls/DeviceOrientationControls.js"></script> 
 <script>
     var renderer;
 
@@ -82,8 +83,8 @@
 
     function initControls() {
 
-        controls = new THREE.OrbitControls(camera, renderer.domElement);
-
+        //controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls = new DeviceOrientationControls( camera );
         // If you use the animate method, delete this function
         //controls.addEventListener( 'change', render );
         // When the animation is used in a loop, damping or rotating means whether there is inertia
