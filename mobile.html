@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script src="https://johnson2heng.github.io/three.js-demo/lib/three.js"></script>
+<script src="https://johnson2heng.github.io/three.js-demo/lib/js/controls/OrbitControls.js"></script>
+<script src="https://johnson2heng.github.io/three.js-demo/lib/js/libs/stats.min.js"></script>
+<script src="https://johnson2heng.github.io/three.js-demo/lib/js/libs/dat.gui.min.js"></script>
+<script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/controls/DeviceOrientationControls.js"></script> 
+<script>
+
+let camera, scene, renderer, controls;
+
+const startButton = document.getElementById( 'startButton' );
+startButton.addEventListener( 'click', function () {
+
+    init();
+    animate();
+
+} );
+
+function init() {
+
+    const overlay = document.getElementById( 'overlay' );
+    overlay.remove();
+
+    camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
+
+    controls = new DeviceOrientationControls( camera );
+
+    scene = new THREE.Scene();
+
+    const geometry = new THREE.SphereGeometry( 500, 60, 40 );
+    // invert the geometry on the x-axis so that all of the faces point inward
+    geometry.scale( - 1, 1, 1 );
+
+    const material = new THREE.MeshBasicMaterial( {
+        map: new THREE.TextureLoader().load( 'https://mir-s3-cdn-cf.behance.net/project_modules/fs/ca0fe977589717.6038b8a89ac68.jpg' )
+    } );
+
+    const mesh = new THREE.Mesh( geometry, material );
+    scene.add( mesh );
+
+    const helperGeometry = new THREE.BoxGeometry( 100, 100, 100, 4, 4, 4 );
+    const helperMaterial = new THREE.MeshBasicMaterial( { color: 0xff00ff, wireframe: true } );
+    const helper = new THREE.Mesh( helperGeometry, helperMaterial );
+    scene.add( helper );
+
+    //
+
+    renderer = new THREE.WebGLRenderer( { antialias: true } );
+    renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild( renderer.domElement );
+
+    //
+
+    window.addEventListener( 'resize', onWindowResize );
+
+
+}
+
+function animate() {
+
+    window.requestAnimationFrame( animate );
+
+    controls.update();
+    renderer.render( scene, camera );
+
+}
+
+function onWindowResize() {
+
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize( window.innerWidth, window.innerHeight );
+
+}
+
+</script>
+</html>
