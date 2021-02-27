@@ -19,33 +19,30 @@ canvas {
 <body>
     
 </body>
-<script src="https://johnson2heng.github.io/three.js-demo/lib/three.js"></script>
-<script src="https://johnson2heng.github.io/three.js-demo/lib/js/controls/OrbitControls.js"></script>
-<script src="https://johnson2heng.github.io/three.js-demo/lib/js/libs/stats.min.js"></script>
-<script src="https://johnson2heng.github.io/three.js-demo/lib/js/libs/dat.gui.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js" integrity="sha512-n8IpKWzDnBOcBhRlHirMZOUvEq2bLRMuJGjuVqbzUJwtTsgwOgK5aS0c1JA647XWYfqvXve8k3PtZdzpipFjgg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.js" integrity="sha512-aPhrlLlp7Mr8g+MVw6/wMD8PjqqzRNhSM8pHDyyJPmUTJMzKxMmxrjauzQforOaAegN3CIKUTKXJyLwFD57RtA==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.module.js" integrity="sha512-X8D4WXQ7+AHBIDs+l8dFr+7BVP1jE7ZB2SgApHxVEj1ZDZ/m0bXJA0onJSrRwnpBO/mIMyOtnTAA7qzeH1A1wA==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.module.min.js" integrity="sha512-NLZbIaXz7478HOc7l9TPPedN72kLMm2pLk3t2Tnx4bMoDfi8/D/FEaUgB775fY/jPqJK4wuZgDgL6F30sSRrSg==" crossorigin="anonymous"></script>
-<script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/controls/DeviceOrientationControls.js"></script> 
 <script>
+import * as THREE from '../build/three.module.js';
+
+import { DeviceOrientationControls } from './jsm/controls/DeviceOrientationControls.js';
 
 let camera, scene, renderer, controls;
 
-window.onload=function () {
+const startButton = document.getElementById( 'startButton' );
+startButton.addEventListener( 'click', function () {
 
     init();
     animate();
 
-};
+} );
 
 function init() {
 
+    const overlay = document.getElementById( 'overlay' );
+    overlay.remove();
 
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
 
-    controls = new THREE.DeviceOrientationControls( camera );
+    controls = new DeviceOrientationControls( camera );
 
     scene = new THREE.Scene();
 
@@ -54,7 +51,7 @@ function init() {
     geometry.scale( - 1, 1, 1 );
 
     const material = new THREE.MeshBasicMaterial( {
-        map: new THREE.TextureLoader().load( 'https://mir-s3-cdn-cf.behance.net/project_modules/fs/ca0fe977589717.6038b8a89ac68.jpg' )
+        map: new THREE.TextureLoader().load( 'textures/2294472375_24a3b8ef46_o.jpg' )
     } );
 
     const mesh = new THREE.Mesh( geometry, material );
@@ -62,8 +59,8 @@ function init() {
 
     const helperGeometry = new THREE.BoxGeometry( 100, 100, 100, 4, 4, 4 );
     const helperMaterial = new THREE.MeshBasicMaterial( { color: 0xff00ff, wireframe: true } );
-    //const helper = new THREE.Mesh( helperGeometry, helperMaterial );
-    //scene.add( helper );
+    const helper = new THREE.Mesh( helperGeometry, helperMaterial );
+    scene.add( helper );
 
     //
 
@@ -76,25 +73,6 @@ function init() {
 
     window.addEventListener( 'resize', onWindowResize );
 
-    if (window.DeviceOrientationEvent) {
-    window.addEventListener('deviceorientation', function (eventData) {
-
-
-        var tiltX = Math.round(eventData.gamma * 2 );
-
-
-        var tiltY =  Math.round(eventData.beta * 2);
-
-        deviceOrientationHandler(tiltX,tiltY);
-
-    }, false);
-}
-
-function deviceOrientationHandler(tiltX, tiltY){
-
-      mouseX = tiltX;
-      mouseY = tiltY;
-}
 
 }
 
@@ -115,6 +93,7 @@ function onWindowResize() {
     renderer.setSize( window.innerWidth, window.innerHeight );
 
 }
+
 
 </script>
 </html>
