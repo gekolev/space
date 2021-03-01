@@ -19,14 +19,16 @@ canvas {
 <body>
     
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.module.js" integrity="sha512-X8D4WXQ7+AHBIDs+l8dFr+7BVP1jE7ZB2SgApHxVEj1ZDZ/m0bXJA0onJSrRwnpBO/mIMyOtnTAA7qzeH1A1wA==" crossorigin="anonymous"></script>
+
 <script type="module">
-import * as THREE from '../node_modules/three/build/three.module.js';
-import { DeviceOrientationControls } from '../node_modules/three/examples/jsm/controls/DeviceOrientationControls.js';
+
+import * as THREE from 'https://unpkg.com/three@0.126.0/build/three.module.js';
+import { DeviceOrientationControls } from 'https://unpkg.com/three@0.126.0/examples/jsm/controls/DeviceOrientationControls.js';
 
 let camera, scene, renderer, controls;
 
 const startButton = document.getElementById( 'startButton' );
+
 startButton.addEventListener( 'click', function () {
 
     init();
