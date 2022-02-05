@@ -83,9 +83,9 @@ function init() {
     const geometry = new THREE.SphereGeometry( 500, 60, 40 );
     // invert the geometry on the x-axis so that all of the faces point inward
     geometry.scale( - 1, 1, 1 );
-
+    //https://mir-s3-cdn-cf.behance.net/project_modules/fs/211e3a77589717.603e6e5607c60.jpg
     const material = new THREE.MeshBasicMaterial( {
-        map: new THREE.TextureLoader().load( 'https://mir-s3-cdn-cf.behance.net/project_modules/fs/211e3a77589717.603e6e5607c60.jpg' )
+        map: new THREE.TextureLoader().load( 'test-1.jpg' )
     } );
 
     const mesh = new THREE.Mesh( geometry, material );
