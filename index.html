@@ -83,8 +83,8 @@
 
     function initControls() {
 
-        controls = new THREE.OrbitControls(camera, renderer.domElement);
-        //controls = new THREE.DeviceOrientationControls( camera );
+        // controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls = new THREE.DeviceOrientationControls( camera );
         // If you use the animate method, delete this function
         controls.addEventListener( 'change', render );
         // When the animation is used in a loop, damping or rotating means whether there is inertia
