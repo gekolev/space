@@ -36,6 +36,7 @@ button {
 html, body {
     margin: 0;
     height: 100%;
+    overflow: hidden;
 }
 
 canvas {
@@ -45,7 +46,7 @@ canvas {
 <body>
     <div id="overlay">
         <button id="startButton">
-            Аз черпя
+            Click to see
         </button>
     </div>
 </body>
@@ -59,17 +60,19 @@ let camera, scene, renderer, controls;
 
 const startButton = document.getElementById( 'startButton' );
 
-startButton.addEventListener( 'click', function () {
-
+window.onload = function() {
     init();
     animate();
+};
+
+startButton.addEventListener( 'click', function () {
+
+    const overlay = document.getElementById( 'overlay' );
+    overlay.remove();
 
 } );
 
 function init() {
-
-    const overlay = document.getElementById( 'overlay' );
-    overlay.remove();
 
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
 
