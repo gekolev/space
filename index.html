@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPACE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap" rel="stylesheet"> -->
+<link href="https://fonts.googleapis.com/css2?family=Teko&display=swap" rel="stylesheet">
 </head>
 <style>
     
@@ -20,7 +24,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,1);
 }
 button {
     background: transparent;
@@ -31,23 +35,58 @@ button {
     padding: 12px 18px;
     text-transform: uppercase;
     cursor: pointer;
+    font-family: 'Teko', sans-serif;
+    font-size: 24px;
 }
 
 html, body {
     margin: 0;
     height: 100%;
     overflow: hidden;
+    position: relative;
+        font-family: 'Teko', sans-serif;
 }
 
 canvas {
     display: block;
 }
+.social{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+.flex-center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 320px;
+    padding: 20px
+}
+.intro{
+    font-family: 'Teko', sans-serif;
+    font-size: 24px;
+    color:white;
+    text-align: center;
+    margin-bottom: 50px;
+}
 </style>
 <body>
     <div id="overlay">
+        <div class="flex-center">
+        <span class="intro">
+I wish I may, I wish I might,<br>
+Have the wish I wish tonight.</span>
         <button id="startButton">
-            Click to see
+            Wish
         </button>
+        </div>
+    </div>
+    <div class="social">
+        <a style="display: flex; flex-direction: column; align-items: center;  text-decoration:none;" href="https://www.instagram.com/gekolev/">
+            <img src="insta.svg" style="width: 40px; height: 40px;" />
+            <br>
+            <span style="color:white;">@gekolev</span>
+        </a>
     </div>
 </body>
 
@@ -91,10 +130,10 @@ function init() {
     const mesh = new THREE.Mesh( geometry, material );
     scene.add( mesh );
 
-    const helperGeometry = new THREE.BoxGeometry( 100, 100, 100, 4, 4, 4 );
-    const helperMaterial = new THREE.MeshBasicMaterial( { color: 0xff00ff, wireframe: true } );
-    const helper = new THREE.Mesh( helperGeometry, helperMaterial );
-    scene.add( helper );
+    // const helperGeometry = new THREE.BoxGeometry( 100, 100, 100, 4, 4, 4 );
+    // const helperMaterial = new THREE.MeshBasicMaterial( { color: 0xff00ff, wireframe: true } );
+    // const helper = new THREE.Mesh( helperGeometry, helperMaterial );
+    // scene.add( helper );
 
     //
 
