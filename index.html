@@ -49,7 +49,6 @@ html, body {
 
 canvas {
     display: block;
-    /* z-index: 5; */
 }
 .social{
     position: absolute;
@@ -70,9 +69,6 @@ canvas {
     text-align: center;
     margin-bottom: 50px;
 }
-.z-1{
-    z-index: 1;
-}
 .loading{
     height: auto;
   width: 300px;
@@ -83,6 +79,10 @@ canvas {
   margin-top: -150px;
   text-align: left;
   font-size: 24px;
+}
+.right{
+    text-align: right;
+    float: right;
 }
 </style>
 <body>
@@ -96,8 +96,8 @@ Have the wish I wish tonight.</span>
         </button>
         </div>
     </div>
-    <div id="thing" class="loading z-1">
-        <span class="intro">Space is big. You just won't believe how vastly, hugely, mind-bogglingly big it is. I mean, you may think it's a long way down the road to the chemist's, but that's just peanuts to space.<br>Douglas Adams</span>
+     <div id="thing" class="loading z-1">
+        <span class="intro">Space is big. You just won't believe how vastly, hugely, mind-bogglingly big it is. <br>I mean, you may think it's a long way down the road to the chemist's, but that's just peanuts to space.<br><span class="right">Douglas Adams</span></span>
     </div>
     <div class="social">
         <a style="display: flex; flex-direction: column; align-items: center;  text-decoration:none;" href="https://www.instagram.com/gekolev/">
@@ -109,7 +109,6 @@ Have the wish I wish tonight.</span>
 </body>
 
 <script type="module">
-// really not in the mood for a code review please leave the source files :^) thanks
 
 import * as THREE from 'https://unpkg.com/three@0.126.0/build/three.module.js';
 import { DeviceOrientationControls } from 'https://unpkg.com/three@0.126.0/examples/jsm/controls/DeviceOrientationControls.js';
@@ -117,30 +116,30 @@ import { DeviceOrientationControls } from 'https://unpkg.com/three@0.126.0/examp
 let camera, scene, renderer, controls;
 
 const startButton = document.getElementById( 'startButton' );
+    var fadingText = document.getElementById('thing').style;
+    fadingText.opacity = 1;
+    function fade()
+    {
+        (fadingText.opacity-=.01)<0?fadingText.display="none":setTimeout(fade,100)
+    }
 
-// window.onload = function() {
+
+window.onload = function() {
   
-// };
+};
 
 startButton.addEventListener( 'click', function () {
 
     const overlay = document.getElementById( 'overlay' );
     overlay.remove();
-    fade();
     init();
     animate();
+    fade();
 } );
-
-    var s = document.getElementById('thing').style;
-    s.opacity = 1;
-    function fade()
-    {
-        (s.opacity-=.01)<0?s.display="none":setTimeout(fade,100)
-    }
 
 function init() {
 
-    camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 50 );
+    camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
 
     controls = new DeviceOrientationControls( camera );
 
@@ -151,7 +150,7 @@ function init() {
     geometry.scale( - 1, 1, 1 );
     //https://mir-s3-cdn-cf.behance.net/project_modules/fs/211e3a77589717.603e6e5607c60.jpg
     const material = new THREE.MeshBasicMaterial( {
-        map: new THREE.TextureLoader().load( 'banka-aliance.jpg' )
+        map: new THREE.TextureLoader().load( 'banka-aliance-min.jpg' )
     } );
 
     const mesh = new THREE.Mesh( geometry, material );
