@@ -49,7 +49,7 @@ html, body {
 
 canvas {
     display: block;
-    z-index: 5;
+    /* z-index: 5; */
 }
 .social{
     position: absolute;
@@ -126,9 +126,9 @@ startButton.addEventListener( 'click', function () {
 
     const overlay = document.getElementById( 'overlay' );
     overlay.remove();
+    fade();
     init();
     animate();
-    fade();
 } );
 
     var s = document.getElementById('thing').style;
@@ -136,7 +136,7 @@ startButton.addEventListener( 'click', function () {
     function fade()
     {
         (s.opacity-=.01)<0?s.display="none":setTimeout(fade,100)
-    };
+    }
 
 function init() {
 
