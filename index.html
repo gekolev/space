@@ -84,15 +84,20 @@ canvas {
     text-align: right;
     float: right;
 }
-.dektop-msg{
-    display: none;
+
+.desktop-class{
+    background-color: black; width: 100%; height: 100%; position: relative; display: none;
+  align-items: center;
+  justify-content: center;
+  
 }
+
 </style>
 <script> 
 function mobileCheck (){
    if (window.screen.width>800){
         document.getElementById("app").style.display = "none";
-        document.getElementById("desktop-msg").style.display = "block";
+        document.getElementById("desktop-msg").style.display = "flex";
    }
 }
 window.onload = function() {
@@ -100,9 +105,7 @@ window.onload = function() {
 };
 </script>
 <body>
-    <div id="dektop-msg" style="background-color: black; width: 100%; height: 100%; position: relative; display: flex;
-  align-items: center;
-  justify-content: center;">
+    <div id="desktop-msg" class="desktop-class" style="">
         <h1 style="color: white; margin:0; text-align: center;">Stargazing avaliable only from mobile devices!</h1>
     </div>
     <div id="app">
@@ -120,7 +123,7 @@ Have the wish I wish tonight.</span>
         <span class="intro">Space is big. You just won't believe how vastly, hugely, mind-bogglingly big it is. <br>I mean, you may think it's a long way down the road to the chemist's, but that's just peanuts to space.<br><span class="right">Douglas Adams</span></span>
     </div>
     <div class="social">
-        <a style="display: flex; flex-direction: column; align-items: center;  text-decoration:none;" href="https://www.instagram.com/gekolev/">
+        <a style="display: flex; flex-direction: column; align-items: center;  text-decoration:none; line-height: 10px;" href="https://www.instagram.com/gekolev/">
             <img src="insta.svg" style="width: 40px; height: 40px;" />
             <br>
             <span style="color:white;">@gekolev</span>
