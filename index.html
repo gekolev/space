@@ -92,12 +92,21 @@ canvas {
   
 }
 
+#app{
+    opacity: 0;
+    visibility: hidden;
+}
+
 </style>
 <script> 
 function mobileCheck (){
    if (window.screen.width>800){
         document.getElementById("app").style.display = "none";
         document.getElementById("desktop-msg").style.display = "flex";
+   }
+   else{
+       document.getElementById("app").style.opacity = 1;
+       document.getElementById("app").style.visibility = "visible";
    }
 }
 window.onload = function() {
@@ -106,7 +115,7 @@ window.onload = function() {
 </script>
 <body>
     <div id="desktop-msg" class="desktop-class" style="">
-        <h1 style="color: white; margin:0; text-align: center;">Stargazing avaliable only from mobile devices!</h1>
+        <h1 style="color: white; margin:0; text-align: center;">Stargazing available only for mobile devices!</h1>
     </div>
     <div id="app">
     <div id="overlay">
